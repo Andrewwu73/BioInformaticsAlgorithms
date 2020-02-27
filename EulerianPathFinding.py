@@ -1,4 +1,6 @@
 graph = {}
+
+#This algorithm follows that of the Eulerian cycle closely; only that the starting and ending nodes must be the ones of odd degree.
 a = "nice"
 import random
 

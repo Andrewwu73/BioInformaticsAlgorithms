@@ -1,10 +1,14 @@
+#Use a greedy algorithm to search for the best motif.
 bestmotifs = []
 length, num = map(int, input("").split(" "))
 dna = []
+# append all the dna strings
 for k in range(num):
     dna.append(input(""))
+#start with bestmotifs as the set of all motifs.
 for m in dna:
     bestmotifs.append(m[0:length])
+#We score motifs against consensus string formed from scores.
 def scoreMotifs(scores):
     consensus = ""
     count = 0
@@ -31,15 +35,13 @@ def scoreMotifs(scores):
                 count = count + 1
             
     return count
-                
-        
-    return count
+#generate motif profile               
 for j in range(len(dna[0])-length+1):
     motifList= [dna[0][j:j+length]]
     
     for y in range(1, num):
         profile = [[], [], [], []]
-        for xd in range(length):
+        for itera in range(length):
             profile[0].append(0)
             profile[1].append(0)
             profile[2].append(0)
@@ -56,20 +58,20 @@ for j in range(len(dna[0])-length+1):
                     profile[3][l] = profile[3][l] + 1
         newMotif = ""
         mostProb = -1
-        for kkk in range(len(dna[y])-length+1):
+        for move in range(len(dna[y])-length+1):
             currentProb = 1
             for stop in range(length):
-                if(dna[y][kkk+stop]=="A"):
+                if(dna[y][move+stop]=="A"):
                     currentProb = currentProb*profile[0][stop]
-                elif(dna[y][kkk+stop]=="C"):
+                elif(dna[y][move+stop]=="C"):
                     currentProb = currentProb*profile[1][stop]
-                elif(dna[y][kkk+stop]=="G"):
+                elif(dna[y][move+stop]=="G"):
                     currentProb = currentProb*profile[2][stop]
-                elif(dna[y][kkk+stop]=="T"):
+                elif(dna[y][move+stop]=="T"):
                     currentProb = currentProb * profile[3][stop]
             if(currentProb>mostProb):
                 mostProb = currentProb
-                newMotif = dna[y][kkk:kkk+length]
+                newMotif = dna[y][move:move+length]
         motifList.append(newMotif)
     if(scoreMotifs(motifList)<scoreMotifs(bestmotifs)):
         bestmotifs = motifList

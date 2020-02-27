@@ -1,6 +1,7 @@
 a  = input("")
 b  = input("")
 lengths = []
+#Compute highest scoring fitting alignment using DP
 for x in range(len(a)+1):
     temp = []
     for y in range(len(b)+1):
@@ -16,14 +17,14 @@ for x in range(len(a)+1):
                 f = f + 1
             else:
                 f = f - 1
-            troll = max(d, e, f)
-            if(troll==d):
-                lengths[x][y] = (troll, "Y")
-            elif(troll==e):
-                lengths[x][y] = (troll, "X")
-            elif(troll==f):
-                lengths[x][y] = (troll, "D")
-        
+            temp = max(d, e, f)
+            if(temp==d):
+                lengths[x][y] = (temp, "Y")
+            elif(temp==e):
+                lengths[x][y] = (temp, "X")
+            elif(temp==f):
+                lengths[x][y] = (temp, "D")
+#backtrack        
 maxVal = -99999999
 backStart = 0
 for x in range(len(b), len(a)+1):
